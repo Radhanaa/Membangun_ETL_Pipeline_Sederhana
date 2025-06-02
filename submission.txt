@@ -1,0 +1,77 @@
+📦 Panduan Menjalankan Proyek ETL Data Produk - Fashion Studio
+
+Proyek ini melakukan proses Extract, Transform, dan Load (ETL) data produk dari situs "Fashion Studio". Data akan dibersihkan dan disimpan ke dalam file CSV (`product.csv`) serta diunggah ke Google Spreadsheet secara otomatis.
+
+1. Persiapan Lingkungan
+-----------------------
+
+a. Buat virtual environment agar lingkungan pengembangan terisolasi:
+   python -m venv env
+
+b. Aktifkan virtual environment:
+   - Windows:
+     env\Scripts\activate
+   - macOS/Linux:
+     source env/bin/activate
+
+c. Install semua dependencies yang dibutuhkan:
+   pip install -r requirements.txt
+
+2. Menjalankan ETL
+------------------
+
+a. Jalankan skrip utama ETL:
+   python main.py
+
+b. Output:
+   - File `product.csv` akan dibuat/ditimpa pada direktori proyek.
+   - Data akan diunggah ke Google Sheets sesuai dengan `SPREADSHEET_ID` dan kredensial di `pemrosesan-data-xxxx.json`.
+
+   Pastikan:
+   - File `pemrosesan-data-xxxx.json` (Google Service Account) berada di root direktori.
+   - Spreadsheet ID dan `range` di `utils/load.py` telah disesuaikan.
+
+3. Menjalankan Unit Test
+------------------------
+
+a. Untuk menguji seluruh unit test:
+   python -m unittest discover tests
+
+b. Untuk menjalankan pengujian spesifik:
+   python -m unittest tests/test_extract.py
+   python -m unittest tests/test_transform.py
+   python -m unittest tests/test_load.py
+
+4. Menjalankan Test Coverage
+----------------------------
+
+a. Install coverage jika belum:
+   pip install coverage
+
+b. Jalankan semua test dan ukur coverage:
+   coverage run -m unittest discover tests
+
+c. Lihat laporan hasil:
+   coverage report -m
+
+d. (Opsional) Buat laporan HTML:
+   coverage html
+
+5. Struktur Folder
+------------------
+
+- main.py                 # Skrip utama ETL
+- product.csv             # Output file dari ETL
+- requirements.txt        # Dependencies
+- utils/
+  ├── extract.py          # Ekstraksi data dari web
+  ├── transform.py        # Transformasi dan pembersihan data
+  └── load.py             # Penyimpanan ke CSV dan Google Sheets
+- tests/
+  ├── test_extract.py     # Unit test untuk modul extract
+  ├── test_transform.py   # Unit test untuk modul transform
+  └── test_load.py        # Unit test untuk modul load
+
+6. Catatan Tambahan
+-------------------
+Link Google Sheet: https://docs.google.com/spreadsheets/d/1P1hOG0RRmT8zujKOa7GYgyYBFoJ1sjRtANUnN7PdXgc/edit?usp=sharing
